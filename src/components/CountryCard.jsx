@@ -2,7 +2,7 @@ function CountryCard({ country }) {
     const name = country.translations?.fra?.common || country.name.common;
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition">
+        <div className="bg-gray-400 rounded-lg shadow-md p-4 hover:shadow-lg transition ">
             <img
                 src={country.flags.svg}
                 alt={`Drapeau de ${name}`}
