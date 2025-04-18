@@ -1,4 +1,4 @@
-function CountryCard({ country }) {
+function CountryCard({ country, onClick }) {
     const name = country.translations?.fra?.common || country.name.common;
 
     return (

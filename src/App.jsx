@@ -108,11 +108,7 @@ function App() {
 
 
 
-      {search.length > 0 ? (
-        <CountrySearchList countries={filteredCountries} />
-      ) : (
-        <CountryRange countries={sortedCountries} />
-      )}
+
     </div>
   );
 }
