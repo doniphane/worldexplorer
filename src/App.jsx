@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import SortButtons from "./components/SortButtons";
 import CountryRange from "./components/CountryRange";
 import CountrySearchList from "./components/CountrySearchList";
+import RegionSelector from "./components/RegionSelector";
+
 
 
 
@@ -9,6 +11,15 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [sortedCountries, setSortedCountries] = useState([]);
   const [search, setSearch] = useState("");
+
+  const [darkMode, setDarkMode] = useState(false);
+  const [selectedRegion, setSelectedRegion] = useState("All");
+
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -55,7 +66,7 @@ function App() {
 
       <SortButtons onSort={sortByPopulation} />
 
-
+      <RegionSelector onSelectRegion={setSelectedRegion} />
       <div className="w-full flex justify-center mt-4 mb-6">
         <input
           type="text"
@@ -65,6 +76,36 @@ function App() {
           className="w-full max-w-md p-2 border border-black rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
         />
       </div>
+
+      <button className="toggle-btn" onClick={() => setDarkMode(!darkMode)}>
+        {darkMode ? "☀️ Mode clair" : "🌙 Mode sombre"}
+      </button>
+
+
+
+      <div className="w-full flex justify-center mt-4 mb-6 ">
+
+      </div>
+
+      {search.length > 0 ? (
+        <CountrySearchList
+          countries={sortedCountries.filter((country) => {
+            const name = country.translations?.fra?.common || country.name.common;
+            return name.toLowerCase().includes(search.toLowerCase());
+          })}
+        />
+      ) : selectedRegion !== "All" ? (
+        <CountrySearchList
+          countries={sortedCountries.filter(
+            (country) => country.region === selectedRegion
+          )}
+        />
+      ) : (
+        <CountryRange countries={sortedCountries} />
+      )}
+
+
+
 
 
       {search.length > 0 ? (
