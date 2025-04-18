@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import CountryCard from "./components/CountryCard";
 import SortButtons from "./components/SortButtons";
+import CountryRange from "./components/CountryRange";
+
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -34,11 +36,8 @@ function App() {
     <div className=" bg-gray-100 p-4">
       <h1 className="text-3xl font-bold text-center mb-6">Wold Explorer</h1>
       <SortButtons onSort={sortByPopulation} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-        {sortedCountries.map((country) => (
-          <CountryCard key={country.cca3} country={country} />
-        ))}
-      </div>
+      <CountryRange countries={sortedCountries} />
+
     </div>
   );
 }
